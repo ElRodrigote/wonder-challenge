@@ -12,8 +12,7 @@ export const AmountInput = () => {
 
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [tokenAmount, setTokenAmount] = sendboxState.tokenAmountState;
-  const [amountInGwei, setTokenAmountInGwei] =
-    sendboxState.tokenAmountInGweiState;
+  const [, setTokenAmountInGwei] = sendboxState.tokenAmountInGweiState;
   const [selectedToken] = sendboxState.selectedtokenState;
 
   useEffect(() => {
