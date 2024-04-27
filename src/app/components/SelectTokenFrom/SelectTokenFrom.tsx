@@ -14,10 +14,10 @@ import { useSendboxContext } from "@/contexts";
 import { formatBalance } from "@/utils";
 
 export const SelectTokenFrom = () => {
-  const account = useAccount();
   const { sendboxState } = useSendboxContext();
   const [tokenAddress, setTokenAddress] = sendboxState.tokenAddressState;
   const [, setSelectedToken] = sendboxState.selectedtokenState;
+  const account = useAccount();
   const { data: balance } = useBalance({
     address: account.address,
     query: {
@@ -82,7 +82,6 @@ export const SelectTokenFrom = () => {
         </Select.Portal>
       </Select.Root>
       {tokenAddress && tokenBalance && parseFloat(tokenBalance) ? (
-        // {false ? (
         <p className="text-blue-600">{`Balance: ${formatBalance(
           tokenBalance
         )}`}</p>

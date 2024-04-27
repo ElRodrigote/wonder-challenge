@@ -3,20 +3,19 @@
 import React, { useEffect, useState } from "react";
 
 import { Address, parseUnits } from "viem";
+import { useAccount, useWriteContract } from "wagmi";
 
+import { wonderErc20ABI } from "@/abis";
 import { Button, Input } from "@/components";
 import { useSendboxContext } from "@/contexts";
-import { useAccount, useWriteContract } from "wagmi";
 import { TX_STATUS } from "@/constants";
-import { wonderErc20ABI } from "@/abis";
 
 export const Mint = () => {
   const [mintAmount, setMintAmount] = useState<string>();
   const [mintAmountInGwei, setMintAmountInGwei] = useState<bigint>();
-  const account = useAccount();
   const { writeContract, status } = useWriteContract();
   const { sendboxState } = useSendboxContext();
-
+  const account = useAccount();
   const [chainId] = sendboxState.chainIdState;
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [selectedToken] = sendboxState.selectedtokenState;
@@ -28,9 +27,6 @@ export const Mint = () => {
       );
     }
   }, [mintAmount, selectedToken]);
-
-  console.log("mintAmount: ", mintAmount);
-  console.log("mintAmountInGwei: ", mintAmountInGwei);
 
   return (
     <div className="flex items-end justify-between w-1/2">

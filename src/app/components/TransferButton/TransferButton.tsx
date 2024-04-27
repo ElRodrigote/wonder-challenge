@@ -12,14 +12,13 @@ import { TX_STATUS } from "@/constants";
 
 export const TransferButton = () => {
   const [tokenInGwei, setTokenInGwei] = useState<bigint>();
+  const { writeContract, status } = useWriteContract();
   const { sendboxState } = useSendboxContext();
-
   const [chainId] = sendboxState.chainIdState;
   const [toAddress] = sendboxState.toAddressState;
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [tokenAmount] = sendboxState.tokenAmountState;
   const [selectedToken] = sendboxState.selectedtokenState;
-  const { writeContract, status } = useWriteContract();
 
   useEffect(() => {
     if (tokenAmount) {

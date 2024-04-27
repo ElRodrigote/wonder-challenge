@@ -1,5 +1,6 @@
-import { SendboxContainer } from "@/components";
 import Link from "next/link";
+
+import { SendboxContainer } from "@/components";
 
 export default function Home() {
   return (

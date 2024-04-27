@@ -12,12 +12,12 @@ import { EVM_ADDRESS } from "@/utils";
 
 export const ApproveButton = () => {
   const [spenderAddress, setSpenderAddress] = useState<string>();
-  const account = useAccount();
+  const { writeContract, status } = useWriteContract();
   const { sendboxState } = useSendboxContext();
   const [chainId] = sendboxState.chainIdState;
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [toAddress] = sendboxState.toAddressState;
-  const { writeContract, status } = useWriteContract();
+  const account = useAccount();
 
   const evmAddressChecker = new RegExp(EVM_ADDRESS);
   const isDisabled = !(toAddress && evmAddressChecker.test(toAddress));

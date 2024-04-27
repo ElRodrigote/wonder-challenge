@@ -7,7 +7,6 @@ import { useSendboxContext } from "@/contexts";
 
 export const AmountInput = () => {
   const { sendboxState } = useSendboxContext();
-
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [tokenAmount, setTokenAmount] = sendboxState.tokenAmountState;
 

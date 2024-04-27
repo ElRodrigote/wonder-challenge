@@ -16,7 +16,6 @@ import { useSendboxContext } from "@/contexts";
 export const Sendbox = () => {
   const account = useAccount();
   const { sendboxState } = useSendboxContext();
-
   const [, setChainId] = sendboxState.chainIdState;
   const [toAddress, setToAddress] = sendboxState.toAddressState;
 
