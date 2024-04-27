@@ -1,4 +1,7 @@
+/**
+ * @TODO enable Amoy testnet data after the SCs get deployed
+ */
 export enum ChainId {
-  MUMBAI = 80001,
+  // AMOY = 80002,
   SEPOLIA = 11155111,
 }

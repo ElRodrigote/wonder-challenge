@@ -1,68 +1,97 @@
 "use client";
 
-import React, { PropsWithChildren } from "react";
-import * as Select from "@radix-ui/react-select";
+import React, { useEffect, useMemo } from "react";
+
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
+import * as Select from "@radix-ui/react-select";
 import { twMerge } from "tailwind-merge";
-import { ConnectKitButton } from "connectkit";
+import { Address } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
-interface SelectItemProps extends PropsWithChildren {
-  className?: string;
-  value: string;
-}
-
-const TOKEN_LIST = [
-  {
-    value: "",
-    label: "DAI",
-  },
-  {
-    value: "",
-    label: "USDC",
-  },
-];
+import { ChainId, DAI, USDC } from "@/constants";
+import { formatBalance } from "@/utils";
+import { useSendboxContext } from "@/contexts";
 
 export const SelectTokenFrom = () => {
   const account = useAccount();
+  const { sendboxState } = useSendboxContext();
+  const [tokenAddress, setTokenAddress] = sendboxState.tokenAddressState;
+  const [, setSelectedToken] = sendboxState.selectedtokenState;
   const { data: balance } = useBalance({
     address: account.address,
-    // token: TOKEN_BY_CHAIN[chainId] as `0x${string}`,
-    token: "0x1D70D57ccD2798323232B2dD027B3aBcA5C00091",
+    query: {
+      retry: 10,
+      retryDelay: 5000,
+    },
+    token: tokenAddress as Address,
   });
 
-  console.log("address: ", account.address);
-  console.log("chain: ", account.chain);
-  console.log("chainId: ", account.chainId);
-  console.log("balance: ", balance);
+  const selectedChainId = account.chainId ?? ChainId.SEPOLIA;
 
-  console.log("test");
+  const TOKEN_LIST = useMemo(() => {
+    return [
+      {
+        value: DAI[selectedChainId as ChainId],
+        label: "DAI",
+      },
+      {
+        value: USDC[selectedChainId as ChainId],
+        label: "USDC",
+      },
+    ];
+  }, [selectedChainId]);
+
+  useEffect(() => {
+    if (tokenAddress) {
+      const selectedToken = TOKEN_LIST.find(
+        (token) => token.value.address === tokenAddress
+      );
+      setSelectedToken(selectedToken);
+    }
+  }, [setSelectedToken, tokenAddress, TOKEN_LIST]);
 
   return (
-    <Select.Root>
-      <Select.Trigger
-        className="inline-flex items-center justify-center rounded px-4 text-sm h-9 gap-1 bg-white text-sky-400 shadow hover:bg-gray-100 focus:shadow-md"
-        aria-label="Food"
+    <div className="flex justify-between items-center">
+      <Select.Root
+        onValueChange={(address) => setTokenAddress(address)}
+        value={tokenAddress}
       >
-        <Select.Value placeholder="Select a token..." />
-        <Select.Icon>
-          <ChevronDownIcon />
-        </Select.Icon>
-      </Select.Trigger>
-      <Select.Portal>
-        <Select.Content className="overflow-hidden bg-white rounded-md shadow-lg">
-          <Select.Viewport className="p-1.5">
-            <Select.Group>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </Select.Group>
-          </Select.Viewport>
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
+        <Select.Trigger
+          className="inline-flex items-center justify-center rounded px-4 text-sm min-w-16 h-9 gap-1 bg-white text-sky-400 shadow hover:bg-gray-100 focus:shadow-md"
+          aria-label="Tokens"
+        >
+          <Select.Value placeholder="Select a token..." />
+          <Select.Icon>
+            <ChevronDownIcon />
+          </Select.Icon>
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Content className="overflow-hidden bg-white rounded-md shadow-lg">
+            <Select.Viewport className="p-1.5">
+              <Select.Group>
+                {TOKEN_LIST.map((token, idx) => (
+                  <SelectItem key={idx} value={token.value.address}>
+                    {token.label}
+                  </SelectItem>
+                ))}
+              </Select.Group>
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
+      {Boolean(tokenAddress) && (
+        <p className="text-blue-600">{`Balance: ${formatBalance(
+          balance?.formatted
+        )}`}</p>
+      )}
+    </div>
   );
 };
 
+interface SelectItemProps extends React.PropsWithChildren {
+  className?: string;
+  value: string;
+}
 const SelectItem = React.forwardRef(
   ({ children, className, value }: SelectItemProps, forwardedRef) => {
     return (

@@ -6,7 +6,7 @@ import {
   trustWallet,
   ledgerWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { sepolia, polygonMumbai } from "wagmi/chains";
+import { sepolia, polygonAmoy } from "wagmi/chains";
 
 const { wallets } = getDefaultWallets();
 
@@ -20,6 +20,6 @@ export const config = getDefaultConfig({
       wallets: [argentWallet, trustWallet, ledgerWallet],
     },
   ],
-  chains: [polygonMumbai, sepolia],
+  chains: [sepolia, polygonAmoy],
   ssr: true,
 });
