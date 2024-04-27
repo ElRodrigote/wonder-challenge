@@ -8,9 +8,10 @@ import { twMerge } from "tailwind-merge";
 import { Address } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
+import { Mint } from "@/components";
 import { ChainId, DAI, USDC } from "@/constants";
-import { formatBalance } from "@/utils";
 import { useSendboxContext } from "@/contexts";
+import { formatBalance } from "@/utils";
 
 export const SelectTokenFrom = () => {
   const account = useAccount();
@@ -27,6 +28,7 @@ export const SelectTokenFrom = () => {
   });
 
   const selectedChainId = account.chainId ?? ChainId.SEPOLIA;
+  const tokenBalance = balance?.formatted;
 
   const TOKEN_LIST = useMemo(() => {
     return [
@@ -79,10 +81,13 @@ export const SelectTokenFrom = () => {
           </Select.Content>
         </Select.Portal>
       </Select.Root>
-      {Boolean(tokenAddress) && (
+      {tokenAddress && tokenBalance && parseFloat(tokenBalance) ? (
+        // {false ? (
         <p className="text-blue-600">{`Balance: ${formatBalance(
-          balance?.formatted
+          tokenBalance
         )}`}</p>
+      ) : (
+        <Mint />
       )}
     </div>
   );

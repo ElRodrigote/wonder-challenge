@@ -17,15 +17,10 @@ export const ApproveButton = () => {
   const [chainId] = sendboxState.chainIdState;
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [toAddress] = sendboxState.toAddressState;
-  const [tokenAmountInGwei] = sendboxState.tokenAmountInGweiState;
   const { writeContract, status } = useWriteContract();
 
   const evmAddressChecker = new RegExp(EVM_ADDRESS);
-  const isDisabled = !(
-    toAddress &&
-    tokenAmountInGwei &&
-    evmAddressChecker.test(toAddress)
-  );
+  const isDisabled = !(toAddress && evmAddressChecker.test(toAddress));
 
   useEffect(() => {
     setSpenderAddress(account.address);

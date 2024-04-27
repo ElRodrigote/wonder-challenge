@@ -20,7 +20,6 @@ export const SendboxContextProvider = ({
   children,
 }: SendboxContextProviderProps) => {
   const [selectedToken, setSelectedToken] = useState<Token>();
-  const [tokenAmountInGwei, setTokenAmountInGwei] = useState();
   const [chainId, setChainId] = useQueryState(
     "chainId",
     parseAsString.withDefault("")
@@ -44,7 +43,6 @@ export const SendboxContextProvider = ({
       selectedtokenState: [selectedToken, setSelectedToken],
       toAddressState: [toAddress, setToAddress],
       tokenAddressState: [tokenAddress, setTokenAddress],
-      tokenAmountInGweiState: [tokenAmountInGwei, setTokenAmountInGwei],
       tokenAmountState: [tokenAmount, setTokenAmount],
     };
 
@@ -59,7 +57,6 @@ export const SendboxContextProvider = ({
     toAddress,
     tokenAddress,
     tokenAmount,
-    tokenAmountInGwei,
   ]);
 
   return (

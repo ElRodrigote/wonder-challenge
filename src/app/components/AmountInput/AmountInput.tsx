@@ -2,8 +2,6 @@
 
 import React, { useEffect } from "react";
 
-import { parseUnits } from "viem";
-
 import { Input } from "@/components";
 import { useSendboxContext } from "@/contexts";
 
@@ -12,21 +10,10 @@ export const AmountInput = () => {
 
   const [tokenAddress] = sendboxState.tokenAddressState;
   const [tokenAmount, setTokenAmount] = sendboxState.tokenAmountState;
-  const [, setTokenAmountInGwei] = sendboxState.tokenAmountInGweiState;
-  const [selectedToken] = sendboxState.selectedtokenState;
 
   useEffect(() => {
-    if (tokenAmount) {
-      setTimeout(() => setTokenAmountInGwei(amountInGwei), 500);
-      const amountInGwei = parseUnits(
-        tokenAmount,
-        selectedToken?.value.decimals
-      );
-    } else {
-      setTokenAmount(null);
-      setTokenAmountInGwei(null);
-    }
-  }, [selectedToken, setTokenAmount, setTokenAmountInGwei, tokenAmount]);
+    if (!tokenAmount) setTokenAmount(null);
+  }, [setTokenAmount, tokenAmount]);
 
   return (
     <Input

@@ -17,6 +17,7 @@ export const Navbar = () => (
           title="DeFi Wonderland"
           className="flex items-center outline-none w-7"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <Image src={WonderlandLogo} alt="DeFi Wonderland Logotype" />
         </Link>

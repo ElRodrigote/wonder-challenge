@@ -26,7 +26,8 @@ export const Button = ({
       "hover:bg-gray-100",
       "disabled:bg-gray-300",
       "focus:ring-4 focus:outline-none focus:ring-gray-100",
-      `${loading ? "flex items-center justify-center" : ""}`
+      "flex items-center justify-center",
+      className
     )}
     {...rest}
   >

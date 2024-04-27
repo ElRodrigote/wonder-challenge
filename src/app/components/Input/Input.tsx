@@ -32,7 +32,8 @@ export const Input = ({
           `${
             error &&
             "bg-red-200 !border-red-200 focus:!ring-red-800 focus:!border-red-800"
-          }`
+          }`,
+          className
         )}
         onChange={onChange}
         placeholder={placeholder}

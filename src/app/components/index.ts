@@ -2,6 +2,7 @@ export * from "./AmountInput";
 export * from "./ApproveButton";
 export * from "./Button";
 export * from "./Input";
+export * from "./Mint";
 export * from "./Navbar";
 export * from "./SelectTokenFrom";
 export * from "./Sendbox";
