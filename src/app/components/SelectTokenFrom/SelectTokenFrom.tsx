@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 import { Address } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
-import { Mint } from "@/components";
+import { Mint, Spinner } from "@/components";
 import { ChainId, DAI, USDC } from "@/constants";
 import { useSendboxContext } from "@/contexts";
 import { formatBalance } from "@/utils";
@@ -18,7 +18,7 @@ export const SelectTokenFrom = () => {
   const [tokenAddress, setTokenAddress] = sendboxState.tokenAddressState;
   const [, setSelectedToken] = sendboxState.selectedtokenState;
   const account = useAccount();
-  const { data: balance } = useBalance({
+  const { data: balance, isLoading } = useBalance({
     address: account.address,
     query: {
       retry: 10,
@@ -81,13 +81,16 @@ export const SelectTokenFrom = () => {
           </Select.Content>
         </Select.Portal>
       </Select.Root>
-      {tokenAddress && tokenBalance && parseFloat(tokenBalance) ? (
-        <p className="text-blue-600">{`Balance: ${formatBalance(
-          tokenBalance
-        )}`}</p>
-      ) : (
-        <Mint />
-      )}
+      {tokenAddress &&
+        (isLoading ? (
+          <Spinner />
+        ) : tokenBalance && parseFloat(tokenBalance) ? (
+          <p className="text-blue-600">{`Balance: ${formatBalance(
+            tokenBalance
+          )}`}</p>
+        ) : (
+          <Mint />
+        ))}
     </div>
   );
 };
