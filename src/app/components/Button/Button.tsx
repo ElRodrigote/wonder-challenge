@@ -23,7 +23,7 @@ export const Button = ({
     onClick={onClick}
     disabled={disabled}
     className={twMerge(
-      "text-gray-900 bg-white border border-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 min-w-36",
+      "text-gray-900 bg-white border border-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2",
       "hover:bg-gray-100",
       "disabled:bg-gray-300",
       "focus:ring-4 focus:outline-none focus:ring-gray-100",

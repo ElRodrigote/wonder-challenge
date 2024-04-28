@@ -47,7 +47,7 @@ export const TransferButton = () => {
         })
       }
     >
-      Transfer token
+      Transfer
     </Button>
   );
 };
