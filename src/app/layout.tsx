@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
@@ -22,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={twMerge(inter.className, "bg-indigo-300")}>
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <Suspense fallback={null}>
+          <Providers>
+            <Navbar />
+            {children}
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );
