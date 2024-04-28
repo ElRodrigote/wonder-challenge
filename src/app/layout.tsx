@@ -9,6 +9,8 @@ import "./globals.css";
 import { Navbar } from "@/components";
 import { Providers } from "@/providers";
 
+import Loading from "./loading";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={twMerge(inter.className, "bg-indigo-300")}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loading />}>
           <Providers>
             <Navbar />
             {children}

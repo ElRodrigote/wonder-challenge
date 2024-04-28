@@ -44,9 +44,9 @@ export const SelectTokenFrom = () => {
   }, [selectedChainId]);
 
   useEffect(() => {
-    if (tokenAddress) {
+    if (tokenAddress && TOKEN_LIST) {
       const selectedToken = TOKEN_LIST.find(
-        (token) => token.value.address === tokenAddress
+        (token) => token.value?.address === tokenAddress
       );
       setSelectedToken(selectedToken);
     }
@@ -72,7 +72,7 @@ export const SelectTokenFrom = () => {
             <Select.Viewport className="p-1.5">
               <Select.Group>
                 {TOKEN_LIST.map((token, idx) => (
-                  <SelectItem key={idx} value={token.value.address}>
+                  <SelectItem key={idx} value={token.value?.address}>
                     {token.label}
                   </SelectItem>
                 ))}

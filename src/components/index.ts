@@ -6,7 +6,6 @@ export * from "./Mint";
 export * from "./Navbar";
 export * from "./SelectTokenFrom";
 export * from "./Sendbox";
-export * from "./SendboxContainer";
 export * from "./SoonTM";
 export * from "./Spinner";
 export * from "./ToAddressInput";
